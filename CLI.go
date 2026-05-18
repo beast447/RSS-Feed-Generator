@@ -110,3 +110,21 @@ func handleReset(s *state, cmd command) error {
 	fmt.Println("All users deleted successfully")
 	return nil
 }
+
+func handleGetAllUsers(s *state, cmd command) error {
+	currentUser := s.configPtr.Name
+
+	users, err := s.db.GetAllUsers(context.Background())
+	if err != nil {
+		return err
+	}
+	for _, user := range users {
+		if user == currentUser {
+			fmt.Printf("* %v (current)\n", user)
+			continue
+		} else {
+			fmt.Printf("* %v\n", user)
+		}
+	}
+	return nil
+}

@@ -32,6 +32,7 @@ func main() {
 	c.register("login", handleLogin)
 	c.register("register", handleRegister)
 	c.register("reset", handleReset)
+	c.register("users", handleGetAllUsers)
 
 	userArgs := os.Args
 	if len(userArgs) < 1 {
