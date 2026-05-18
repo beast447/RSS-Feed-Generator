@@ -1,0 +1,17 @@
+# Built binary
+RSSfeedCLI
+
+# Standard Go ignores
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
