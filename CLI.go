@@ -99,3 +99,14 @@ func handleRegister(s *state, cmd command) error {
 	fmt.Printf("%v created", cmd.args[2])
 	return nil
 }
+
+func handleReset(s *state, cmd command) error {
+	err := s.db.DeleteUsers(context.Background())
+	if err != nil {
+		os.Exit(1)
+		return err
+	}
+
+	fmt.Println("All users deleted successfully")
+	return nil
+}

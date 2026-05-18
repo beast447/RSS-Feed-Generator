@@ -31,9 +31,10 @@ func main() {
 
 	c.register("login", handleLogin)
 	c.register("register", handleRegister)
+	c.register("reset", handleReset)
 
 	userArgs := os.Args
-	if len(userArgs) < 2 {
+	if len(userArgs) < 1 {
 		fmt.Fprintln(os.Stderr, "not enough arguments provided")
 		os.Exit(1)
 	}
