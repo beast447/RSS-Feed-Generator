@@ -12,7 +12,6 @@ type Config struct {
 }
 
 func getConfigFilePath() (string, error) {
-
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		return "", err
@@ -24,7 +23,6 @@ func getConfigFilePath() (string, error) {
 }
 
 func Read() (Config, error) {
-
 	filename, err := getConfigFilePath()
 	if err != nil {
 		return Config{}, err
@@ -44,7 +42,6 @@ func Read() (Config, error) {
 }
 
 func SetUser(user string) error {
-
 	configStruct, err := Read()
 	if err != nil {
 		return err
@@ -62,7 +59,7 @@ func SetUser(user string) error {
 		return err
 	}
 
-	if err := os.WriteFile(filepath, rawBytes, 0777); err != nil {
+	if err := os.WriteFile(filepath, rawBytes, 0o777); err != nil {
 		return err
 	}
 	return nil

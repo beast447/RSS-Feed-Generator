@@ -46,6 +46,15 @@ func handleLogin(s *state, cmd command) error {
 		return fmt.Errorf("no arguments were given after login")
 	}
 
+	userExists, err := s.db.GetUser(context.Background(), cmd.args[2])
+	if err != nil {
+		os.Exit(1)
+		return err
+	}
+	if userExists.Name != cmd.args[2] {
+		os.Exit(1)
+	}
+
 	if err := config.SetUser(cmd.args[2]); err != nil {
 		return err
 	}
@@ -59,7 +68,7 @@ func handleRegister(s *state, cmd command) error {
 	if len(cmd.args) < 1 {
 		return fmt.Errorf("Not enough args")
 	}
-	if len(cmd.args) < 1 {
+	if len(cmd.args) < 3 {
 		return fmt.Errorf("Not enough args")
 	}
 
@@ -68,9 +77,11 @@ func handleRegister(s *state, cmd command) error {
 
 	userExists, err := s.db.GetUser(context.Background(), cmd.args[2])
 	if err == nil {
+		os.Exit(1)
 		return err
 	}
 	if userExists.Name == cmd.args[2] {
+		fmt.Println("User exists")
 		os.Exit(1)
 	}
 
@@ -80,6 +91,11 @@ func handleRegister(s *state, cmd command) error {
 	if errr != nil {
 		return err
 	}
+
+	if err := config.SetUser(cmd.args[2]); err != nil {
+		return err
+	}
+
 	fmt.Printf("%v created", cmd.args[2])
 	return nil
 }
