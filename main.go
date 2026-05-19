@@ -33,6 +33,12 @@ func main() {
 	c.register("register", handleRegister)
 	c.register("reset", handleReset)
 	c.register("users", handleGetAllUsers)
+	c.register("agg", handleAgg)
+	c.register("addfeed", middlewareLoggedIn(handleAddFeed))
+	c.register("feeds", handleFeeds)
+	c.register("follow", middlewareLoggedIn(handleFollow))
+	c.register("following", middlewareLoggedIn(handleFollowing))
+	c.register("unfollow", middlewareLoggedIn(handleUnfollow))
 
 	userArgs := os.Args
 	if len(userArgs) < 1 {
